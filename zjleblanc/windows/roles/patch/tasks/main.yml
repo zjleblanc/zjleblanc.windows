@@ -1,0 +1,46 @@
+---
+- name: List updates
+  register: r_searched
+  ansible.windows.win_updates:
+    category_names: "{{ patch_categories }}"
+    accept_list: "{{ patch_kbs | default(omit) }}"
+    state: searched
+
+- name: Publish search report
+  when: skip_install
+  delegate_to: raspi # my report server
+  block:
+    - name: Create report location if it does not exist
+      ansible.builtin.file:
+        path: "{{ patch_report_dest_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Generate report based on search
+      when: skip_install
+      vars:
+        update_list: "{{ r_searched.updates | dict2items }}"
+        filtered_list: "{{ r_searched.filtered_updates | dict2items }}"
+      ansible.builtin.template:
+        src: search_report.html.j2
+        dest: "{{ patch_report_dest_dir }}/{{ inventory_hostname }}_patch_report.html"
+        mode: '0644'
+
+- name: Install updates
+  when: not skip_install
+  register: r_installed
+  ansible.windows.win_updates:
+    category_names: "{{ patch_categories }}"
+    accept_list: "{{ patch_kbs | default(omit) }}"
+    reboot: "{{ patch_allow_reboot }}"
+    state: installed
+
+- name: Report any failed updates
+  delegate_to: raspi # my report server
+  when:
+    - not skip_install
+    - patch_failed_report
+    - r_installed.failed_update_count
+  ansible.builtin.template:
+    src: failed_report.txt.j2
+    dest: "{{ patch_report_dest_dir }}/{{ inventory_hostname }}_patch_failed_report.txt"
