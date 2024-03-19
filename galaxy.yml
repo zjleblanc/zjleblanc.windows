@@ -1,0 +1,27 @@
+namespace: zjleblanc
+name: windows
+version: 1.0.1
+
+authors:
+- Zach LeBlanc <zjleblanc3@gmail.com>
+description: Windows automation content
+readme: README.md
+
+license_file: LICENSE
+
+tags:
+  - windows
+  - mssql
+  - smb
+  - patching
+
+repository: https://github.com/zjleblanc/zjleblanc.windows
+documentation: https://github.com/zjleblanc/zjleblanc.tmdb/windows/master/README.md
+homepage: https://github.com/zjleblanc/zjleblanc.windows
+issues: https://github.com/zjleblanc/zjleblanc.windows/issues
+
+dependencies: {}
+build_ignore:
+  - .venv
+  - .gitignore
+  - ansible.cfg

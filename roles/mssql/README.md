@@ -15,6 +15,7 @@ Role Variables
 | mssql_sqlsvc_account_pass | ❌ | _REQUIRED_ |
 | mssql_agentsvc_account_pass | ❌ | _REQUIRED_ |
 | mssql_assvc_account_pass | ❌ | _REQUIRED_ |
+| mssql_ps_sqlserver_dsc_version | ✅ | 16.5.0 |
 | mssql_version | ✅ | 2022 |
 | mssql_version_media | ✅ | {'2022': ... |
 | mssql_installation_source | ✅ | {{ mssql_version_media[mssql_version] }} |

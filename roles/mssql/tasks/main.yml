@@ -34,7 +34,7 @@
       - name: dbatools
       - name: xNetworking
       - name: SqlServerDsc
-        required_version: "16.2.0"
+        required_version: "{{ mssql_ps_sqlserver_dsc_version }}"
   loop_control:
     loop_var: module
   community.windows.win_psmodule:

@@ -4,6 +4,9 @@
 # mssql_agentsvc_account_pass
 # mssql_assvc_account_pass:
 
+# ps modules
+mssql_ps_sqlserver_dsc_version: "16.5.0"
+
 # installation files source 
 mssql_version: "2022"
 mssql_version_media:

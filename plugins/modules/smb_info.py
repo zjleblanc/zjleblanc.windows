@@ -16,7 +16,7 @@ options:
     description:
       - Optional name filter to isolate specific shares
     type: str
-    default: *
+    default: "*"
 seealso:
 - module: ansible.windows.win_share
 author:
@@ -29,7 +29,7 @@ EXAMPLES = r'''
 
 - name: Get info for shares staring with Net
   mgmt.windows.smb_info:
-    name: Net*
+    name: "Net*"
 '''
 
 RETURN = r'''
